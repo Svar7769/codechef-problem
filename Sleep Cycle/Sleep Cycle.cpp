@@ -12,7 +12,6 @@ int main() {
         cin >> n >> sleep;
         cin >> s;
         int counter= 0;
-        vector<int> v;
 
         for (int i = 0; i < n; i++) {
             if(s[i] == '0'){
@@ -20,26 +19,20 @@ int main() {
             }
             // when one
             else {
-                if(counter!= 0)
-                    v.push_back(counter);
+                if(counter >= sleep/2 + 1){
+                    sleep -= counter;
+                    sleep *= 2;
+                }
                 counter = 0;
             }
         }
-        if (counter != 0)
-            v.push_back(counter);
+        if (counter >= sleep/2 + 1 && counter !=0){
+            sleep -= counter; 
+            sleep *=2 ;
+        }
 
         
-        if (!v.empty()){
-            sort(v.begin(), v.end());
-            for(int i = v.size() - 1 ; i>= 0; i--){
-                if(v[i] >= sleep){
-                    ans = "Yes";
-                    break;
-                }else {
-                    sleep = 2 * (sleep - v[i]);
-                }
-            }
-        }
+        if( sleep <= 0) ans = "Yes";
 
         cout << ans << "\n";
 
